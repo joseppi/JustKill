@@ -45,21 +45,17 @@ Tests have been done with 4 players but the game can theoretically handle more.
 - Release
 
 ### Josep Pi
-- **Client Side Prediction**
-- **Delegate**
-- Zombie Spawner
-	- Added Increasing Zombie Spawning Ratio
-	- Zombie Spawner based on connected proxies
-	- Server and spawner resets when no proxies connected on the server 
-- Fix revive bug 
-- Server clears GameObject list when there are no proxies connected.
-- Update Colliders Module to the last version
-- Map
-- Collision of the map
-- Improved ImGui debug GUI
-	- You can see what packets are begin dropped
-	- Log jumps to the last event automatically
-- ReadMe
+
+- **Client-side prediction:** contributed local movement and aiming prediction so input can be applied before authoritative server updates arrive.
+- **Packet delivery and recovery:** contributed sequence-number tracking, acknowledgements, delivery callbacks and timeout handling in the shared delivery manager. On a failed delivery, replication callbacks requeue the affected commands.
+- **Network diagnostics:** extended the ImGui panel with separate dropped-packet counters for replication, ping, welcome and unwelcome messages. Added automatic scrolling to the latest log event.
+- **Zombie spawning and session lifecycle:** implemented spawning that increases over time and depends on connected client proxies; reset server/spawner state and removed server game objects when no clients remained.
+- **Gameplay and collision:** worked on the map and its collisions, a revive bug fix and updating the collider module.
+- **Documentation:** maintained the README.
+
+Selected implementation evidence: [prediction](https://github.com/joseppi/JustKill/commit/afff75684344756d67800314a6b0223d26d405eb), [delivery handling and diagnostics](https://github.com/joseppi/JustKill/commit/0e9be65e8feb456a282ad759a44f656805096d1e), and [spawner/session cleanup](https://github.com/joseppi/JustKill/commit/9f7b414bce82b048456867c7673f2510a77747d8).
+
+Replication, delivery management and reconciliation were shared work; the original joint credits remain below. These are academic implementation contributions, not a claim of production-ready or lossless networking.
 
 ### Both
 - **Server Replication**
